@@ -352,11 +352,11 @@ function Projects() {
     const ctx = gsap.context(() => {
       gsap.from(".project-entry", {
         y: 38,
-        opacity: 0,
         duration: 0.75,
         stagger: 0.13,
         ease: "power3.out",
-        scrollTrigger: { trigger: ".project-list", start: "top 78%" },
+        immediateRender: false,
+        scrollTrigger: { trigger: ref.current.querySelector(".project-list"), start: "top 78%", once: true },
       });
     }, ref);
     return () => ctx.revert();
