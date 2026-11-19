@@ -309,15 +309,16 @@ function Skills() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(".skill-row", {
-        x: -40, opacity: 0, duration: 0.7, stagger: 0.1, ease: "power3.out",
-        scrollTrigger: { trigger: ".skills-list", start: "top 78%" },
+        x: -40, duration: 0.7, stagger: 0.1, ease: "power3.out",
+        scrollTrigger: { trigger: ref.current.querySelector(".skills-list"), start: "top 78%", once: true },
       });
-      document.querySelectorAll(".skill-fill").forEach((bar) => {
+      ref.current.querySelectorAll(".skill-fill").forEach((bar) => {
         gsap.fromTo(bar, { width: "0%" }, {
           width: bar.dataset.level + "%",
           duration: 1.2,
           ease: "power2.out",
-          scrollTrigger: { trigger: bar, start: "top 82%" },
+          immediateRender: false,
+          scrollTrigger: { trigger: bar, start: "top 82%", once: true },
         });
       });
     }, ref);
@@ -336,7 +337,7 @@ function Skills() {
                 <span className="skill-code font-mono">{skill.code}</span>
                 <Icon className="skill-icon" size={21} />
                 <h3>{skill.name}</h3>
-                <div className="skill-track"><span className="skill-fill" data-level={skill.level} /></div>
+                <div className="skill-track"><span className="skill-fill" data-level={skill.level} style={{ width: `${skill.level}%` }} /></div>
               </article>
             );
           })}
